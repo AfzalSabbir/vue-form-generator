@@ -9,20 +9,31 @@
 			<div class="col-md-5 col-md-offset-1">
 				<div class="control-buttons text-center">
 					<button @click="newModel" class="btn btn-default new">
-						<i class="fa fa-plus"></i>New</button>
+						<i class="fa fa-plus"></i>New
+					</button>
 					<button @click="saveModel" class="btn btn-primary save">
 						<i class="fa fa-floppy-o"></i>Save
 						<i v-if="showWarning()" class="fa fa-warning"></i>
 					</button>
 					<button @click="deleteModel" class="btn btn-danger delete">
-						<i class="fa fa-trash"></i>Delete</button>
+						<i class="fa fa-trash"></i>Delete
+					</button>
 				</div>
 				<div class="errors text-center">
-					<div v-for="(item, index) in validationErrors" :key="index" class="alert alert-danger">{{ item.field.label}}:
+					<div v-for="(item, index) in validationErrors"
+						 :key="index"
+						 class="alert alert-danger">{{ item.field.label }}:
 						<strong>{{ item.error }}</strong>
 					</div>
 				</div>
-				<vue-form-generator :schema="schema" :model="model" :options="formOptions" :multiple="selected.length > 1" ref="form" :is-new-model="isNewModel" @model-updated="modelUpdated" @validated="onValidated"></vue-form-generator>
+				<vue-form-generator :schema="schema"
+									:model="model"
+									:options="formOptions"
+									:multiple="selected.length > 1"
+									ref="form"
+									:is-new-model="isNewModel"
+									@model-updated="modelUpdated"
+									@validated="onValidated"></vue-form-generator>
 			</div>
 			<div class="col-md-6">
 				<pre v-if="model" v-html="prettyModel"></pre>
@@ -32,20 +43,24 @@
 </template>
 
 <script>
-import Vue from "vue";
-import VueFormGenerator from "../../../src";
-import DataTable from "./dataTable.vue";
-import Fakerator from "fakerator";
+const Vue = require("Vue").default;
+//require("vue").default
 
-import Schema from "./schema";
-import { users } from "./data";
+import VueFormGenerator from "../../../src";
+import DataTable        from "./dataTable.vue";
+import Fakerator        from "fakerator";
+
+import Schema     from "./schema";
+import { users }  from "./data";
 import mixinUtils from "../../mixins/utils.js";
 
 import Multiselect from "vue-multiselect";
+
 Vue.component("multiselect", Multiselect);
 
 // Test custom field
 import FieldAwesome from "./fieldAwesome.vue";
+
 Vue.component("fieldAwesome", FieldAwesome);
 
 import { each, cloneDeep, merge } from "lodash";
@@ -74,9 +89,9 @@ export default {
 			schema: Schema,
 
 			formOptions: {
-				validateAfterLoad: true,
+				validateAfterLoad   : true,
 				validateAfterChanged: true,
-				validateBeforeSave: true
+				validateBeforeSave  : true
 			}
 		};
 	},
@@ -136,9 +151,9 @@ export default {
 			this.selected.splice(0);
 			console.log("VueFormGenerator.schema", VueFormGenerator);
 
-			let newRow = VueFormGenerator.schema.createDefaultObject(Schema, { id: this.getNextID() });
+			let newRow      = VueFormGenerator.schema.createDefaultObject(Schema, { id: this.getNextID() });
 			this.isNewModel = true;
-			this.model = newRow;
+			this.model      = newRow;
 
 			let el = document.querySelector("div.form input:nth-child(1):not([readonly]):not(:disabled)");
 			if (el) el.focus();
@@ -202,7 +217,7 @@ export default {
 				navigator.geolocation.getCurrentPosition(pos => {
 					if (!model.address) model.address = {};
 					if (!model.address.geo) model.address.geo = {};
-					model.address.geo.latitude = pos.coords.latitude.toFixed(5);
+					model.address.geo.latitude  = pos.coords.latitude.toFixed(5);
 					model.address.geo.longitude = pos.coords.longitude.toFixed(5);
 				});
 			} else {
@@ -226,7 +241,7 @@ export default {
 	}
 };
 
-window.Vue = require("vue").default;
+window.Vue = Vue;
 </script>
 
 <style lang="scss">

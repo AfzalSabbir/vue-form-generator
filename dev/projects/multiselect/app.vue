@@ -17,8 +17,10 @@
 <script>
 import mixinUtils from "../../mixins/utils.js";
 
-import Vue from "vue";
+const Vue = require("Vue").default;
+
 import Multiselect from "vue-multiselect";
+
 Vue.component("multiselect", Multiselect);
 
 export default {
@@ -33,11 +35,11 @@ export default {
 			schema: {
 				fields: [
 					{
-						type: "vueMultiSelect",
+						type       : "vueMultiSelect",
 						multiSelect: true,
-						label: "Skills",
-						model: "skills",
-						values: ["Javascript", "VueJS", "CSS3", "HTML5"]
+						label      : "Skills",
+						model      : "skills",
+						values     : ["Javascript", "VueJS", "CSS3", "HTML5"]
 					}
 				]
 			},

@@ -1,9 +1,7 @@
-import Vue from "vue";
+import { createApp }    from "Vue";
 import VueFormGenerator from "../../../src";
-Vue.use(VueFormGenerator);
+import App              from "./app.vue";
 
-import App from "./app.vue";
+const app = createApp(App);
 
-new Vue({
-	...App
-}).$mount("#app");
+app.use(VueFormGenerator).mount("#app");
